@@ -1,37 +1,22 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import ElementList from "../element-list/element-list.jsx";
+import React from "react";
 
-const App = () => {
+const App = (props) => {
+  const {tree} = props;
+
   return (
-    <h1>Hello</h1>
+    <div className="inner">
+      <ElementList
+        elements={tree}
+      />
+    </div>
   );
-}
-
-App.propTypes = {
 };
 
-// const mapStateToProps = (state) => ({
-//   step: state.step,
-//   maxMistakes: state.maxMistakes,
-//   questions: state.questions,
-//   mistakes: state.mistakes,
-// });
+const mapStateToProps = (state) => ({
+  tree: state.tree,
+});
 
-// const mapDispatchToProps = (dispatch) => ({
-//   onWelcomeButtonClick() {
-//     dispatch(ActionCreator.incrementStep());
-//   },
-//   onUserAnswer(question, answer) {
-//     dispatch(ActionCreator.incrementMistake(question, answer));
-//     dispatch(ActionCreator.incrementStep());
-//   },
-//   resetGame() {
-//     dispatch(ActionCreator.resetGame());
-//   },
-// });
-
-
-//export {App};
-//export default connect(mapStateToProps, mapDispatchToProps)(App);
-export default App;
+export {App};
+export default connect(mapStateToProps)(App);

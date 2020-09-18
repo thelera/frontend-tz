@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render TreeElement 1`] = `
+<li
+  className="element-list__item"
+>
+  <div
+    className="element-list__inner"
+  >
+    <h2
+      className="element-list__title"
+      onClick={[Function]}
+    >
+      acoustic
+    </h2>
+    <button
+      className="element-list__button element-list__button--show"
+      onClick={[Function]}
+    >
+      Show path
+    </button>
+    <button
+      className="element-list__button element-list__button--minus"
+      onClick={[Function]}
+    >
+      Delete
+    </button>
+    <form
+      className="element-list__form"
+      onSubmit={[Function]}
+    >
+      <input
+        className="element-list__input"
+        placeholder="Type to add child node"
+        type="text"
+      />
+      <button
+        className="element-list__button element-list__button--plus"
+        type="submit"
+      >
+        Add
+      </button>
+    </form>
+  </div>
+</li>
+`;

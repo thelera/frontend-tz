@@ -1,12 +1,4 @@
-import {App} from "./app.jsx";
-import configureStore from "redux-mock-store";
-import {Provider} from "react-redux";
-import React from "react";
-import renderer from "react-test-renderer";
-
-const mockStore = configureStore([]);
-
-const mock = [
+export default [
   {
     name: `guitars`,
     children: [
@@ -60,20 +52,3 @@ const mock = [
     ],
   },
 ];
-
-it(`Render App`, () => {
-  const store = mockStore({
-  });
-
-  const tree = renderer
-      .create(
-          <Provider store={store}>
-            <App
-              tree={mock}
-            />
-          </Provider>
-      )
-      .toJSON();
-
-  expect(tree).toMatchSnapshot();
-});

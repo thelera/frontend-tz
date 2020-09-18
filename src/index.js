@@ -1,10 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import App from "./components/app/app.jsx";
 import {createStore} from "redux";
 import {Provider} from "react-redux";
-import App from "./components/app/app.jsx";
+import React from "react";
+import ReactDOM from "react-dom";
 import {reducer} from "./reducer.js";
-
 
 const store = createStore(
     reducer,
