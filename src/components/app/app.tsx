@@ -1,8 +1,13 @@
+import * as React from "react";
 import {connect} from "react-redux";
-import ElementList from "../element-list/element-list.jsx";
-import React from "react";
+import ElementList from "../element-list/element-list";
+import {TreeNode} from "../../types";
 
-const App = (props) => {
+interface Props {
+  tree: Array<TreeNode>;
+}
+
+const App: React.FunctionComponent<Props> = (props: Props) => {
   const {tree} = props;
 
   return (

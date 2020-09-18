@@ -1,12 +1,13 @@
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
-import ElementList from "./element-list.jsx";
+import ElementList from "./element-list";
 import {Provider} from "react-redux";
-import React from "react";
-import renderer from "react-test-renderer";
+import {TreeNode} from "../../types";
 
 const mockStore = configureStore([]);
 
-const mock = [
+const mock: Array<TreeNode> = [
   {
     name: `guitars`,
     children: [

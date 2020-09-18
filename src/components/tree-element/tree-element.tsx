@@ -1,9 +1,25 @@
-import {ActionCreator, Selector} from "../../reducer.js";
+import * as React from "react";
+import {ActionCreator, Selector} from "../../reducer";
 import {connect} from "react-redux";
-import {findElementInArrayByName, getPath} from "../../utils.js";
-import React from "react";
+import {findElementInArrayByName, getPath} from "../../utils";
+import {TreeNode} from "../../types";
 
-class TreeElement extends React.Component {
+interface Props {
+  name: string;
+  tree: Array<TreeNode>;
+  onDeleteButtonClick: (string) => void;
+  onNewChildButtonClick: (names: {
+    name: string;
+    newElementName: string;
+  }) => void;
+  render: (boolean) => React.ReactNode;
+}
+
+interface State {
+  isChildrenShown: boolean;
+}
+
+class TreeElement extends React.Component<Props, State> {
   constructor(props) {
     super(props);
 
@@ -30,7 +46,7 @@ class TreeElement extends React.Component {
 
   render() {
     const {name, tree, onDeleteButtonClick, onNewChildButtonClick} = this.props;
-    const newElemenetRef = React.createRef();
+    const newElemenetRef: React.RefObject<HTMLInputElement> = React.createRef();
 
     return (
       <li className="element-list__item">
