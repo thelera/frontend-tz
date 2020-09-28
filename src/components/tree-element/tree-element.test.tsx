@@ -83,9 +83,9 @@ it(`Render TreeElement`, () => {
       .create(
           <Provider store={store}>
             <TreeElement
+              children={mock.children}
               key={mock.name}
               name={mock.name}
-              render={() => null}
               tree={mockTree}
               onDeleteButtonClick={noop}
               onNewChildButtonClick={noop}

@@ -16,15 +16,9 @@ const ElementList: React.FunctionComponent<Props> = (props: Props) => {
 
         return (
           <TreeElement
+            children={children}
             key={name}
             name={name}
-            render={(isChildrenShown) => {
-              if (isChildrenShown && children && children.length > 0) {
-                return <ElementList elements={children}/>;
-              } else {
-                return null;
-              }
-            }}
           />
         );
       })}

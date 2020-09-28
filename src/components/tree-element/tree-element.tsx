@@ -1,10 +1,12 @@
 import * as React from "react";
 import {ActionCreator, Selector} from "../../reducer";
 import {connect} from "react-redux";
+import ElementList from "../element-list/element-list";
 import {findElementInArrayByName, getPath} from "../../utils";
 import {TreeNode} from "../../types";
 
 interface Props {
+  children: Array<TreeNode>;
   name: string;
   tree: Array<TreeNode>;
   onDeleteButtonClick: (string) => void;
@@ -12,7 +14,6 @@ interface Props {
     name: string;
     newElementName: string;
   }) => void;
-  render: (boolean) => React.ReactNode;
 }
 
 interface State {
@@ -45,7 +46,8 @@ class TreeElement extends React.Component<Props, State> {
   }
 
   render() {
-    const {name, tree, onDeleteButtonClick, onNewChildButtonClick} = this.props;
+    const {children, name, tree, onDeleteButtonClick, onNewChildButtonClick} = this.props;
+    const {isChildrenShown} = this.state;
     const newElemenetRef: React.RefObject<HTMLInputElement> = React.createRef();
 
     return (
@@ -89,7 +91,7 @@ class TreeElement extends React.Component<Props, State> {
           </form>
         </div>
 
-        {this.props.render(this.state.isChildrenShown)}
+        {isChildrenShown && children && children.length > 0 && <ElementList elements={children}/>}
       </li>
     );
   }
