@@ -1,4 +1,6 @@
-export default [
+import {addIdToArray} from "../utils";
+
+const tree = [
   {
     name: `guitars`,
     children: [
@@ -52,3 +54,9 @@ export default [
     ],
   },
 ];
+
+console.log(tree);
+console.log(addIdToArray(tree));
+
+
+export default addIdToArray(tree);

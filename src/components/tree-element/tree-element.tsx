@@ -2,17 +2,18 @@ import * as React from "react";
 import {ActionCreator, Selector} from "../../reducer";
 import {connect} from "react-redux";
 import ElementList from "../element-list/element-list";
-import {findElementInArrayByName, getPath} from "../../utils";
+import {getPath, getRandomId} from "../../utils";
 import {TreeNode} from "../../types";
 
 interface Props {
   children: Array<TreeNode>;
+  id: string;
   name: string;
   tree: Array<TreeNode>;
   onDeleteButtonClick: (string) => void;
-  onNewChildButtonClick: (names: {
-    name: string;
-    newElementName: string;
+  onNewChildButtonClick: (payload: {
+    id: string;
+    newElement: any;
   }) => void;
 }
 
@@ -39,14 +40,14 @@ class TreeElement extends React.Component<Props, State> {
     }));
   }
 
-  _handleShowPathClick(tree, name) {
-    const path = getPath(tree, name);
+  _handleShowPathClick(tree, id) {
+    const path = getPath(tree, id);
 
     console.log(path.join(` > `));
   }
 
   render() {
-    const {children, name, tree, onDeleteButtonClick, onNewChildButtonClick} = this.props;
+    const {children, id, name, tree, onDeleteButtonClick, onNewChildButtonClick} = this.props;
     const {isChildrenShown} = this.state;
     const newElemenetRef: React.RefObject<HTMLInputElement> = React.createRef();
 
@@ -61,14 +62,14 @@ class TreeElement extends React.Component<Props, State> {
           <button
             className="element-list__button element-list__button--show"
             onClick={() => {
-              this._handleShowPathClick(tree, name);
+              this._handleShowPathClick(tree, id);
             }}>
             Show path</button>
 
           <button
             className="element-list__button element-list__button--minus"
             onClick={() => {
-              onDeleteButtonClick(name);
+              onDeleteButtonClick(id);
             }}>
             Delete</button>
 
@@ -78,11 +79,11 @@ class TreeElement extends React.Component<Props, State> {
               evt.preventDefault();
               const newChild = newElemenetRef.current.value;
               if (newChild) {
-                if (findElementInArrayByName(tree, newChild)) {
-                  console.log(`Choose another name`);
-                } else {
-                  onNewChildButtonClick({name, newElementName: newChild});
-                }
+                const newElement = {
+                  id: getRandomId(),
+                  name: newChild,
+                };
+                onNewChildButtonClick({id, newElement});
               }
             }}>
             <input type="text" className="element-list__input" ref={newElemenetRef} placeholder="Type to add child node"/>
@@ -101,11 +102,11 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onDeleteButtonClick(name) {
-    dispatch(ActionCreator.deleteNode(name));
+  onDeleteButtonClick(id) {
+    dispatch(ActionCreator.deleteNode(id));
   },
-  onNewChildButtonClick({name, newElementName}) {
-    dispatch(ActionCreator.addNode({name, newElementName}));
+  onNewChildButtonClick({id, newElement}) {
+    dispatch(ActionCreator.addNode({id, newElement}));
   },
 });
 

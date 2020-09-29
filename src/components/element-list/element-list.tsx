@@ -12,11 +12,12 @@ const ElementList: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <ul className="element-list">
       {elements.map((element) => {
-        const {name, children} = element;
+        const {id, name, children} = element;
 
         return (
           <TreeElement
             children={children}
+            id={id}
             key={name}
             name={name}
           />

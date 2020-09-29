@@ -1,6 +1,6 @@
-const addElementToArrayByKeyName = (array, name, newElement) => {
+const addElementToArrayById = (array, id, newElement) => {
   array.forEach((it) => {
-    if (it.name === name) {
+    if (it.id === id) {
       if (!it.children) {
         it.children = [];
       }
@@ -8,41 +8,58 @@ const addElementToArrayByKeyName = (array, name, newElement) => {
       return;
     }
     if (it.children) {
-      addElementToArrayByKeyName(it.children, name, newElement);
+      addElementToArrayById(it.children, id, newElement);
     }
   });
 };
 
-const addChildNodeToTree = (tree, node, newNode) => {
+const addChildNodeToTree = (tree, id, newNode) => {
   let clonedTree = deepClone(tree);
 
-  addElementToArrayByKeyName(clonedTree, node, newNode);
+  addElementToArrayById(clonedTree, id, newNode);
 
   return clonedTree;
 };
 
+const getRandomId = () => {
+  return String(Date.now() + Math.random());
+};
+
+const addIdToArray = (array) => {
+  let clonedArray = deepClone(array);
+
+  clonedArray.forEach((it) => {
+    it.id = getRandomId();
+    if (it.children) {
+      addIdToArray(it.children);
+    }
+  });
+
+  return clonedArray;
+};
+
 const deepClone = (items) => items.map((item) => Array.isArray(item) ? deepClone(item) : item);
 
-const findElementInArrayByName = (array, name) => {
-  const findByName = (acc, element) => {
+const findElementInArrayById = (array, id) => {
+  const findById = (acc, element) => {
     if (acc) {
       return acc;
     } else {
-      if (element.name === name) {
+      if (element.id === id) {
         return element;
       }
       if (element.children) {
-        return element.children.reduce(findByName, acc);
+        return element.children.reduce(findById, acc);
       }
     }
 
     return acc;
   };
-  return array.reduce(findByName, null);
+  return array.reduce(findById, null);
 };
 
-const getPath = (array, name) => {
-  let element = findElementInArrayByName(array, name);
+const getPath = (array, id) => {
+  let element = findElementInArrayById(array, id);
   let parents = [];
 
   const findParents = (acc, el) => {
@@ -62,24 +79,24 @@ const getPath = (array, name) => {
   return parents.reverse();
 };
 
-const removeElementFromArrayByKeyName = (array, name) => {
+const removeElementFromArrayById = (array, id) => {
   array.forEach((it, index, arr) => {
-    if (it.name === name) {
+    if (it.id === id) {
       arr.splice(index, 1);
       return;
     }
     if (it.children) {
-      removeElementFromArrayByKeyName(it.children, name);
+      removeElementFromArrayById(it.children, id);
     }
   });
 };
 
-const removeNodeFromTree = (tree, nodeName) => {
+const removeNodeFromTree = (tree, nodeId) => {
   let clonedTree = deepClone(tree);
 
-  removeElementFromArrayByKeyName(clonedTree, nodeName);
+  removeElementFromArrayById(clonedTree, nodeId);
 
   return clonedTree;
 };
 
-export {addChildNodeToTree, findElementInArrayByName, getPath, removeNodeFromTree};
+export {addChildNodeToTree, addIdToArray, getPath, getRandomId, removeNodeFromTree};

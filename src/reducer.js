@@ -29,7 +29,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.ADD_NODE:
       return Object.assign({}, state, {
-        tree: addChildNodeToTree(state.tree, action.payload.name, {name: action.payload.newElementName}),
+        tree: addChildNodeToTree(state.tree, action.payload.id, {id: action.payload.newElement.id, name: action.payload.newElement.name}),
       });
 
     case ActionType.DELETE_NODE:
