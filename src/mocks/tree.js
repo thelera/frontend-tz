@@ -55,8 +55,4 @@ const tree = [
   },
 ];
 
-console.log(tree);
-console.log(addIdToArray(tree));
-
-
 export default addIdToArray(tree);
